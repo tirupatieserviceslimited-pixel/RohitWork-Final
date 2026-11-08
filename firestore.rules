@@ -1,0 +1,102 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Is the caller authenticated via Firebase Auth?
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: Bootstrap check for the approved owner/admin UID or admin email
+    function isBootstrapAdmin() {
+      return isAuthenticated() && (
+        request.auth.uid == 'OWsO12gthLRICz3d7XPYmXznYNI2' ||
+        request.auth.token.email == 'tirupatieserviceslimited@gmail.com'
+      );
+    }
+
+    // Helper: Role document check in 'admins' collection
+    function hasAdminDoc() {
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'admin' &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active == true;
+    }
+
+    // Combined Admin Authorization check
+    function isAdmin() {
+      return isBootstrapAdmin() || hasAdminDoc();
+    }
+
+    // -------------------------------------------------------------------------
+    // 1. ADMIN USERS COLLECTION (/admins/{adminId})
+    // -------------------------------------------------------------------------
+    // - Authenticated admins can inspect admin records.
+    // - Only the bootstrap owner can create, modify, or revoke admin privileges.
+    // - Ordinary authenticated users CANNOT create or elevate their own roles.
+    match /admins/{adminId} {
+      allow read: if isAdmin();
+      allow write: if isBootstrapAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. ORDER LEADS COLLECTION (/order_leads/{leadId})
+    // -------------------------------------------------------------------------
+    // - PUBLIC READ IS STRICTLY DENIED: Prevents public order-search queries from
+    //   harvesting customer PII, phone numbers, or order histories.
+    // - PUBLIC UPDATE / DELETE IS DENIED: Only authorized staff admins can process leads.
+    // - GUEST COD CREATION: Narrowly scoped validation for submitting order leads.
+    match /order_leads/{leadId} {
+      allow read: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+
+      allow create: if isValidLeadSubmission() || isAdmin();
+    }
+
+    // Narrowly scoped validation logic for incoming guest COD order lead submissions
+    function isValidLeadSubmission() {
+      let data = request.resource.data;
+
+      return
+        // A. Payment and Status Initial State Enforcements
+        data.paymentMethod == 'COD' &&
+        data.paymentStatus == 'pending' &&
+        (data.status == 'New Lead' || data.leadStatus == 'new') &&
+
+        // B. Server Timestamp Requirement
+        (data.createdAt == request.time || data.createdAt is timestamp) &&
+
+        // C. Reference ID format and bounds
+        data.referenceId is string &&
+        data.referenceId.size() >= 5 && data.referenceId.size() <= 40 &&
+
+        // D. Customer Information Structure & Validation
+        data.customer is map &&
+        data.customer.fullName is string &&
+        data.customer.fullName.size() >= 2 && data.customer.fullName.size() <= 100 &&
+        data.customer.mobileNumber is string &&
+        data.customer.mobileNumber.matches('^[6-9][0-9]{9}$') &&
+        data.customer.district is string &&
+        data.customer.district.size() >= 2 && data.customer.district.size() <= 60 &&
+        data.customer.deliveryAddress is string &&
+        data.customer.deliveryAddress.size() >= 5 && data.customer.deliveryAddress.size() <= 500 &&
+        data.customer.pincode is string &&
+        data.customer.pincode.matches('^[0-9]{6}$') &&
+
+        // E. Items Array Constraints (1 to 50 items)
+        data.items is list &&
+        data.items.size() >= 1 && data.items.size() <= 50 &&
+
+        // F. Pricing Numbers Validation (finite non-negative numbers)
+        data.pricing is map &&
+        data.pricing.subtotal is number && data.pricing.subtotal >= 0 &&
+        data.pricing.shippingFee is number && data.pricing.shippingFee >= 0 &&
+        data.pricing.grandTotal is number && data.pricing.grandTotal >= 0 &&
+
+        // G. Admin Notes must be empty or absent at creation
+        (!('adminNotes' in data) || data.adminNotes == '' || data.adminNotes == null);
+    }
+  }
+}

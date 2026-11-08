@@ -1,0 +1,6 @@
+{
+  "name": "Tirupati International Services Limited",
+  "description": "eMitra stationery and everyday office supplies e-commerce store offering paper, printing supplies, PVC cards, lamination products, and office essentials across India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
