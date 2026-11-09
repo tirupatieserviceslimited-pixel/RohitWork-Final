@@ -112,6 +112,8 @@ export const HeroSlider: React.FC = () => {
                     className="w-full h-full object-cover rounded-lg"
                     src={slide.image}
                     alt="Tirupati International Supply Showcase"
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 </div>
               </div>
@@ -183,11 +185,13 @@ export const HeroSlider: React.FC = () => {
                 </a>
               </div>
             </div>
-            <div className="w-24 h-24 rounded-xl bg-surface-container-low overflow-hidden shrink-0 border border-outline-variant/50">
+            <div className="w-24 h-24 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-xl bg-surface-container-low overflow-hidden shrink-0 border border-outline-variant/50">
               <img
                 className="w-full h-full object-cover"
                 src={slide.image}
                 alt="eMitra Supplies Preview"
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
           </div>

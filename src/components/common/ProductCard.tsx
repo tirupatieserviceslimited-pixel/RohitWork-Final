@@ -59,6 +59,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 className="w-full h-full object-contain"
                 src={product.images[0]}
                 alt={product.name}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </Link>
@@ -115,6 +117,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <img
             src={product.images[0]}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-contain hover:scale-105 transition-transform duration-200"
             referrerPolicy="no-referrer"
           />
@@ -197,7 +201,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
   // Standard Desktop Grid Card View - Exact Design Reference match
   return (
-    <div className="bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant hover:border-primary/60 transition-all flex flex-col justify-between h-full group hover:shadow-sm">
+    <div className="bg-surface-container-lowest rounded-xl p-2.5 sm:p-space-md border border-outline-variant hover:border-primary/60 transition-all flex flex-col justify-between h-full group hover:shadow-sm">
       <div className="flex flex-col">
         {/* Product Image Area */}
         <div className="relative w-full aspect-square bg-surface-container-low rounded-lg overflow-hidden mb-space-sm p-space-sm flex items-center justify-center">
@@ -222,6 +226,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               src={product.images[0]}
               alt={product.name}
               loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
             />
           </Link>
@@ -276,21 +281,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           type="button"
           disabled={isOutOfStock}
           onClick={() => addToCart(product, 1)}
-          className="w-full h-10 rounded bg-primary text-on-primary font-body-compact text-[14px] font-semibold hover:bg-tertiary transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.99] disabled:opacity-50"
+          className="w-full h-9 sm:h-10 rounded bg-primary text-on-primary font-body-compact text-[13px] sm:text-[14px] font-semibold hover:bg-tertiary transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.99] disabled:opacity-50"
         >
           <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
-          <span>{isOutOfStock ? t('outOfStock') : t('addToCart')}</span>
+          <span className="truncate">{isOutOfStock ? t('outOfStock') : t('addToCart')}</span>
         </button>
 
         <a
           href={getWhatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full h-8 rounded border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-[12px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+          className="w-full h-8 rounded border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-[11px] sm:text-[12px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
           title="Inquire about this product on WhatsApp"
         >
-          <span className="material-symbols-outlined text-[16px] text-[#25D366]">chat</span>
-          <span>{language === 'hi' ? 'व्हाट्सएप पूछताछ' : 'WhatsApp Inquiry'}</span>
+          <span className="material-symbols-outlined text-[15px] sm:text-[16px] text-[#25D366]">chat</span>
+          <span className="truncate">{language === 'hi' ? 'व्हाट्सएप पूछताछ' : 'WhatsApp Inquiry'}</span>
         </a>
       </div>
     </div>

@@ -21,7 +21,7 @@ export const MobileViewCartBar: React.FC = () => {
   return (
     <aside
       aria-label="Mobile cart notification"
-      className="lg:hidden fixed bottom-16 inset-x-0 z-40 px-3 py-2 pointer-events-none"
+      className="lg:hidden fixed bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] inset-x-0 z-40 px-3 py-2 pointer-events-none"
     >
       <div className="pointer-events-auto max-w-md mx-auto bg-primary text-on-primary rounded-xl px-4 py-3 shadow-xl flex items-center justify-between border border-white/20 animate-in slide-in-from-bottom-3 duration-200">
         <div className="flex items-center gap-2.5">

@@ -131,7 +131,7 @@ export const TrackOrderPage: React.FC = () => {
                 value={orderQuery}
                 onChange={(e) => setOrderQuery(e.target.value.toUpperCase())}
                 placeholder="e.g. TIP-26-XXXXX"
-                className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-body-compact text-[14px] placeholder:text-outline focus:outline-none focus:border-primary uppercase tracking-wide font-mono font-semibold"
+                className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-body-compact text-[16px] sm:text-[14px] placeholder:text-outline focus:outline-none focus:border-primary uppercase tracking-wide font-mono font-semibold"
               />
             </div>
 
@@ -151,7 +151,7 @@ export const TrackOrderPage: React.FC = () => {
                   value={mobileQuery}
                   onChange={(e) => setMobileQuery(e.target.value.replace(/\D/g, ''))}
                   placeholder="10-digit mobile number"
-                  className="w-full h-10 pl-11 pr-3 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-body-compact text-[14px] placeholder:text-outline focus:outline-none focus:border-primary"
+                  className="w-full h-10 pl-11 pr-3 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-body-compact text-[16px] sm:text-[14px] placeholder:text-outline focus:outline-none focus:border-primary"
                 />
               </div>
             </div>

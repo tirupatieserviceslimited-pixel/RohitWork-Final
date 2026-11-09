@@ -197,7 +197,7 @@ export const Footer: React.FC = () => {
       </footer>
 
       {/* ================= MOBILE ACCORDION FOOTER (lg:hidden) ================= */}
-      <footer className="lg:hidden px-4 pt-4 pb-20 mt-2">
+      <footer className="lg:hidden px-4 pt-4 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] mt-2">
         <div className="rounded-xl bg-surface-container-lowest p-4 shadow-sm space-y-4 border border-outline-variant">
           {/* Corporate Header */}
           <div className="border-b border-surface-container-high pb-3">

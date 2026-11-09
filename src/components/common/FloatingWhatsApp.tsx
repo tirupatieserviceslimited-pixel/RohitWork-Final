@@ -6,7 +6,7 @@ export const FloatingWhatsApp: React.FC = () => {
   return (
     <aside
       aria-label="WhatsApp Support"
-      className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2"
+      className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2"
     >
       {showTooltip && (
         <div className="hidden sm:flex bg-surface-container-lowest text-on-surface px-3 py-1.5 rounded-lg shadow-lg border border-outline-variant text-xs font-semibold items-center gap-1.5 animate-in fade-in slide-in-from-right-2">

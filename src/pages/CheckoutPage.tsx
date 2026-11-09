@@ -365,7 +365,7 @@ export const CheckoutPage: React.FC = () => {
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="e.g. Ramesh Chandra Sharma"
-                    className={`h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[14px] border ${
+                    className={`h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[16px] sm:text-[14px] border ${
                       errors.fullName ? 'border-error ring-1 ring-error' : 'border-outline-variant focus:border-primary'
                     } outline-none transition-all`}
                   />
@@ -393,7 +393,7 @@ export const CheckoutPage: React.FC = () => {
                         value={formData.mobileNumber}
                         onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value.replace(/\D/g, '') })}
                         placeholder="10-digit mobile number"
-                        className="h-10 px-3 bg-transparent w-full text-on-surface placeholder:text-outline text-[14px] outline-none"
+                        className="h-10 px-3 bg-transparent w-full text-on-surface placeholder:text-outline text-[16px] sm:text-[14px] outline-none"
                       />
                     </div>
                     {errors.mobileNumber && (
@@ -412,7 +412,7 @@ export const CheckoutPage: React.FC = () => {
                       value={formData.shopName}
                       onChange={(e) => setFormData({ ...formData, shopName: e.target.value })}
                       placeholder="e.g. Sharma eMitra & Stationery"
-                      className="h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[14px] border border-outline-variant focus:border-primary outline-none transition-all"
+                      className="h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[16px] sm:text-[14px] border border-outline-variant focus:border-primary outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -430,7 +430,7 @@ export const CheckoutPage: React.FC = () => {
                       value={formData.emitraId}
                       onChange={(e) => setFormData({ ...formData, emitraId: e.target.value.toUpperCase() })}
                       placeholder="e.g. RJ-JAI-10482"
-                      className="h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[14px] border border-outline-variant focus:border-primary outline-none transition-all uppercase font-mono"
+                      className="h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[16px] sm:text-[14px] border border-outline-variant focus:border-primary outline-none transition-all uppercase font-mono"
                     />
                   </div>
 
@@ -443,7 +443,7 @@ export const CheckoutPage: React.FC = () => {
                       id="district"
                       value={formData.district}
                       onChange={(e) => setFormData({ ...formData, district: e.target.value })}
-                      className="h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface text-[14px] border border-outline-variant focus:border-primary outline-none transition-all"
+                      className="h-10 px-space-md bg-surface-container-low rounded-lg text-on-surface text-[16px] sm:text-[14px] border border-outline-variant focus:border-primary outline-none transition-all"
                     >
                       {RAJASTHAN_DISTRICTS.map((dist) => (
                         <option key={dist} value={dist}>
@@ -470,7 +470,7 @@ export const CheckoutPage: React.FC = () => {
                         setPincodeVerified(null);
                       }}
                       placeholder="6-digit PIN code"
-                      className={`h-10 w-44 px-space-md bg-surface-container-low rounded-lg text-on-surface text-[15px] font-mono border ${
+                      className={`h-10 w-44 px-space-md bg-surface-container-low rounded-lg text-on-surface text-[16px] sm:text-[15px] font-mono border ${
                         errors.pincode ? 'border-error ring-1 ring-error' : 'border-outline-variant focus:border-primary'
                       } outline-none transition-all`}
                     />
@@ -512,7 +512,7 @@ export const CheckoutPage: React.FC = () => {
                     value={formData.deliveryAddress}
                     onChange={(e) => setFormData({ ...formData, deliveryAddress: e.target.value })}
                     placeholder="Shop No., Near Landmark, Main Market, Tehsil / City"
-                    className={`px-space-md py-2 bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[14px] border ${
+                    className={`px-space-md py-2 bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline text-[16px] sm:text-[14px] border ${
                       errors.deliveryAddress ? 'border-error ring-1 ring-error' : 'border-outline-variant focus:border-primary'
                     } outline-none transition-all resize-none`}
                   />

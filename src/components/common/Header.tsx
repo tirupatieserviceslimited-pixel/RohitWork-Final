@@ -296,7 +296,7 @@ export const Header: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search stationery, paper, ink..."
-                className="w-full bg-transparent font-body-compact text-[14px] text-on-surface placeholder:text-outline focus:outline-none"
+                className="w-full bg-transparent font-body-compact text-[16px] sm:text-[14px] text-on-surface placeholder:text-outline focus:outline-none"
               />
               <button
                 type="button"
@@ -314,7 +314,7 @@ export const Header: React.FC = () => {
       {/* Mobile Drawer Menu Modal */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex">
-          <div className="w-4/5 max-w-sm bg-surface-container-lowest h-full shadow-2xl flex flex-col justify-between overflow-y-auto">
+          <div className="w-4/5 max-w-sm bg-surface-container-lowest h-full shadow-2xl flex flex-col justify-between overflow-y-auto pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
             <div className="p-4 space-y-4">
               <div className="flex items-center justify-between border-b border-outline-variant pb-3">
                 <Link

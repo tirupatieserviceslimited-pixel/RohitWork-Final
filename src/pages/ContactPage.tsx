@@ -179,7 +179,7 @@ export const ContactPage: React.FC = () => {
                         value={formState.name}
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                         placeholder="e.g. Mukesh Kumar"
-                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[14px] outline-none focus:border-primary"
+                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[16px] sm:text-[14px] outline-none focus:border-primary"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -193,7 +193,7 @@ export const ContactPage: React.FC = () => {
                         value={formState.phone}
                         onChange={(e) => setFormState({ ...formState, phone: e.target.value.replace(/\D/g, '') })}
                         placeholder="10-digit mobile number"
-                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[14px] outline-none focus:border-primary"
+                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[16px] sm:text-[14px] outline-none focus:border-primary"
                       />
                     </div>
                   </div>
@@ -208,7 +208,7 @@ export const ContactPage: React.FC = () => {
                         value={formState.orderId}
                         onChange={(e) => setFormState({ ...formState, orderId: e.target.value.toUpperCase() })}
                         placeholder="e.g. TIP-26-XXXXX"
-                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[14px] font-mono outline-none focus:border-primary uppercase"
+                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[16px] sm:text-[14px] font-mono outline-none focus:border-primary uppercase"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -218,7 +218,7 @@ export const ContactPage: React.FC = () => {
                       <select
                         value={formState.subject}
                         onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[14px] outline-none focus:border-primary"
+                        className="h-10 px-3 rounded-lg bg-surface-container-low border border-outline-variant text-[16px] sm:text-[14px] outline-none focus:border-primary"
                       >
                         <option value="Order Dispatch Status">Order Dispatch Status</option>
                         <option value="Bulk Ream Pricing">Bulk Ream Pricing (B2B Matrix)</option>
@@ -240,7 +240,7 @@ export const ContactPage: React.FC = () => {
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                       placeholder="Please describe your requirement, kiosk district, or question in detail..."
-                      className="p-3 rounded-lg bg-surface-container-low border border-outline-variant text-[14px] outline-none focus:border-primary resize-none"
+                      className="p-3 rounded-lg bg-surface-container-low border border-outline-variant text-[16px] sm:text-[14px] outline-none focus:border-primary resize-none"
                     />
                   </div>
 

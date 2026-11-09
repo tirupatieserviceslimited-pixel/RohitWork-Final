@@ -31,6 +31,8 @@ export const CategoryGrid: React.FC = () => {
                   <img
                     src={cat.image}
                     alt={cat.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
                     referrerPolicy="no-referrer"
                   />
@@ -60,17 +62,19 @@ export const CategoryGrid: React.FC = () => {
         <p className="text-[12px] text-on-surface-variant mb-3">
           Browse paper, printing and office supply categories.
         </p>
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-4">
           {displayCategories.map((cat) => (
             <Link
               key={cat.id}
               to={`/category/${cat.id}`}
               className="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-xs border border-outline-variant/60 active:scale-[0.98] transition-transform"
             >
-              <div className="h-24 w-full bg-surface-container overflow-hidden">
+              <div className="h-24 sm:h-28 w-full bg-surface-container overflow-hidden">
                 <img
                   src={cat.image}
                   alt={cat.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
