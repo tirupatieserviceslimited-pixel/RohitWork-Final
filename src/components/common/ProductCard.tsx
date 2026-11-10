@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
@@ -9,17 +9,28 @@ interface ProductCardProps {
   product: Product;
   viewMode?: 'grid' | 'list';
   compact?: boolean;
+  showQuantity?: boolean;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   viewMode = 'grid',
-  compact = false
+  compact = false,
+  showQuantity = true
 }) => {
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
   const { t, language } = useLanguage();
+  const [qty, setQty] = useState(1);
+  const [justAdded, setJustAdded] = useState(false);
   const inWish = isInWishlist(product.id);
+
+  const handleAddToCart = () => {
+    if (isOutOfStock) return;
+    addToCart(product, qty);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1600);
+  };
 
   const getWhatsappUrl = () => {
     const origin = typeof window !== 'undefined' ? window.location.origin : 'https://tirupatiservices.in';
@@ -99,8 +110,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           onClick={() => addToCart(product, 1)}
           className="w-full h-9 rounded-lg bg-primary text-on-primary font-body-compact text-[12px] font-semibold flex items-center justify-center gap-1 active:scale-95 transition-transform disabled:opacity-50"
         >
-          <span className="material-symbols-outlined text-[16px]">shopping_cart</span>
-          <span>{isOutOfStock ? 'Out of Stock' : 'Add to Cart'}</span>
+          <span className="material-symbols-outlined text-[16px] shrink-0">shopping_cart</span>
+          <span className="whitespace-nowrap">{isOutOfStock ? t('outOfStock') : t('addToCart')}</span>
         </button>
       </div>
     );
@@ -190,8 +201,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               onClick={() => addToCart(product, 1)}
               className="h-9 px-4 bg-primary hover:bg-tertiary disabled:bg-surface-container-high disabled:cursor-not-allowed text-on-primary text-[13px] font-semibold rounded transition-colors flex items-center gap-1.5 shadow-sm"
             >
-              <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
-              <span>{isOutOfStock ? 'Out of Stock' : 'Add to Cart'}</span>
+              <span className="material-symbols-outlined text-[18px] shrink-0">shopping_cart</span>
+              <span className="whitespace-nowrap">{isOutOfStock ? t('outOfStock') : t('addToCart')}</span>
             </button>
           </div>
         </div>
@@ -277,15 +288,78 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
         </div>
 
-        <button
-          type="button"
-          disabled={isOutOfStock}
-          onClick={() => addToCart(product, 1)}
-          className="w-full h-9 sm:h-10 rounded bg-primary text-on-primary font-body-compact text-[13px] sm:text-[14px] font-semibold hover:bg-tertiary transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.99] disabled:opacity-50"
-        >
-          <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
-          <span className="truncate">{isOutOfStock ? t('outOfStock') : t('addToCart')}</span>
-        </button>
+        {/* Quantity and Add to Cart Row */}
+        {showQuantity ? (
+          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-1.5 w-full min-w-0">
+            <div className="flex items-center justify-between md:justify-center border border-outline-variant rounded bg-surface-container-low shrink-0 h-8 sm:h-9 px-1 md:px-0 w-full md:w-auto">
+              <button
+                type="button"
+                onClick={() => setQty((prev) => Math.max(1, prev - 1))}
+                disabled={isOutOfStock || qty <= 1}
+                className="w-8 md:w-7 h-full flex items-center justify-center text-on-surface hover:text-primary active:scale-95 disabled:opacity-30 text-sm font-bold"
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+              <span className="flex-1 md:w-7 text-center text-xs font-semibold text-on-surface select-none">
+                {qty}
+              </span>
+              <button
+                type="button"
+                onClick={() => setQty((prev) => prev + 1)}
+                disabled={isOutOfStock}
+                className="w-8 md:w-7 h-full flex items-center justify-center text-on-surface hover:text-primary active:scale-95 disabled:opacity-30 text-sm font-bold"
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+
+            <button
+              type="button"
+              disabled={isOutOfStock}
+              onClick={handleAddToCart}
+              className={`w-full md:flex-1 h-9 rounded text-xs sm:text-[13px] font-semibold transition-all duration-150 flex items-center justify-center gap-1.5 shadow-2xs active:scale-[0.98] ${
+                justAdded
+                  ? 'bg-[#12B76A] text-white'
+                  : 'bg-primary text-on-primary hover:bg-tertiary disabled:bg-surface-container-high disabled:cursor-not-allowed'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[16px] sm:text-[17px] shrink-0">
+                {justAdded ? 'check' : 'shopping_cart'}
+              </span>
+              <span className="whitespace-nowrap">
+                {justAdded
+                  ? t('addedToCart')
+                  : isOutOfStock
+                  ? t('outOfStock')
+                  : t('addToCart')}
+              </span>
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            disabled={isOutOfStock}
+            onClick={handleAddToCart}
+            className={`w-full h-9 sm:h-10 rounded text-xs sm:text-[13px] font-semibold transition-all duration-150 flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] ${
+              justAdded
+                ? 'bg-[#12B76A] text-white'
+                : 'bg-primary text-on-primary hover:bg-tertiary disabled:bg-surface-container-high disabled:cursor-not-allowed'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[18px] shrink-0">
+              {justAdded ? 'check' : 'shopping_cart'}
+            </span>
+            <span className="whitespace-nowrap">
+              {justAdded
+                ? t('addedToCart')
+                : isOutOfStock
+                ? t('outOfStock')
+                : t('addToCart')}
+            </span>
+          </button>
+        )}
 
         <a
           href={getWhatsappUrl()}
@@ -294,8 +368,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className="w-full h-8 rounded border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-[11px] sm:text-[12px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
           title="Inquire about this product on WhatsApp"
         >
-          <span className="material-symbols-outlined text-[15px] sm:text-[16px] text-[#25D366]">chat</span>
-          <span className="truncate">{language === 'hi' ? 'व्हाट्सएप पूछताछ' : 'WhatsApp Inquiry'}</span>
+          <span className="material-symbols-outlined text-[15px] sm:text-[16px] text-[#25D366] shrink-0">chat</span>
+          <span className="whitespace-nowrap">{t('whatsappEnquiry')}</span>
         </a>
       </div>
     </div>

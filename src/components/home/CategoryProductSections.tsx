@@ -121,23 +121,25 @@ const ProductCatalogCard: React.FC<ProductCatalogCardProps> = ({ product }) => {
         </div>
 
         {/* Quantity and Add to Cart Row */}
-        <div className="flex items-center gap-1.5">
-          <div className="flex items-center border border-outline-variant rounded bg-surface-container-low shrink-0 h-9">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-1.5 w-full min-w-0">
+          <div className="flex items-center justify-between md:justify-center border border-outline-variant rounded bg-surface-container-low shrink-0 h-8 sm:h-9 px-1 md:px-0 w-full md:w-auto">
             <button
               type="button"
               onClick={() => setQty((prev) => Math.max(1, prev - 1))}
               disabled={isOutOfStock || qty <= 1}
-              className="w-7 h-full flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-30"
+              className="w-8 md:w-7 h-full flex items-center justify-center text-on-surface hover:text-primary active:scale-95 disabled:opacity-30 text-sm font-bold"
               aria-label="Decrease quantity"
             >
-              -
+              −
             </button>
-            <span className="w-7 text-center text-xs font-semibold text-on-surface">{qty}</span>
+            <span className="flex-1 md:w-7 text-center text-xs font-semibold text-on-surface select-none">
+              {qty}
+            </span>
             <button
               type="button"
               onClick={() => setQty((prev) => prev + 1)}
               disabled={isOutOfStock}
-              className="w-7 h-full flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-30"
+              className="w-8 md:w-7 h-full flex items-center justify-center text-on-surface hover:text-primary active:scale-95 disabled:opacity-30 text-sm font-bold"
               aria-label="Increase quantity"
             >
               +
@@ -148,16 +150,16 @@ const ProductCatalogCard: React.FC<ProductCatalogCardProps> = ({ product }) => {
             type="button"
             disabled={isOutOfStock}
             onClick={handleAddToCart}
-            className={`flex-1 h-9 rounded text-xs font-semibold transition-all duration-150 flex items-center justify-center gap-1 shadow-2xs active:scale-[0.98] ${
+            className={`w-full md:flex-1 h-9 rounded text-xs sm:text-[13px] font-semibold transition-all duration-150 flex items-center justify-center gap-1.5 shadow-2xs active:scale-[0.98] ${
               justAdded
                 ? 'bg-[#12B76A] text-white'
                 : 'bg-primary text-on-primary hover:bg-tertiary disabled:bg-surface-container-high disabled:cursor-not-allowed'
             }`}
           >
-            <span className="material-symbols-outlined text-[16px]">
+            <span className="material-symbols-outlined text-[16px] sm:text-[17px] shrink-0">
               {justAdded ? 'check' : 'shopping_cart'}
             </span>
-            <span className="truncate">
+            <span className="whitespace-nowrap">
               {justAdded
                 ? t('addedToCart')
                 : isOutOfStock
@@ -175,8 +177,8 @@ const ProductCatalogCard: React.FC<ProductCatalogCardProps> = ({ product }) => {
           className="w-full h-8 rounded border border-[#25D366]/40 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
           title="Inquire about this product on WhatsApp"
         >
-          <span className="material-symbols-outlined text-[16px] text-[#25D366]">chat</span>
-          <span>{language === 'hi' ? 'व्हाट्सएप पूछताछ' : 'WhatsApp Inquiry'}</span>
+          <span className="material-symbols-outlined text-[16px] text-[#25D366] shrink-0">chat</span>
+          <span className="whitespace-nowrap">{t('whatsappEnquiry')}</span>
         </a>
       </div>
     </div>
